@@ -3,12 +3,15 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  // Base URL for GitHub Pages deployment
+  // Update 'azure-pipeline-deployer' to match your repository name
+  base: process.env.VITE_BASE_URL || '/',
   server: {
     port: 5173
   },
   build: {
     outDir: 'dist',
-    sourcemap: false, // Set to true if you want source maps in production
+    sourcemap: false,
     rollupOptions: {
       output: {
         // Manual chunk splitting for better caching
@@ -17,11 +20,9 @@ export default defineConfig({
         }
       }
     },
-    // Optimize for Azure Static Web Apps
     assetsDir: 'assets',
     target: 'es2015'
   },
-  base: '/', // Important for Azure Static Web Apps routing
   // Ensure proper handling of environment variables in production
   define: {
     __VUE_PROD_DEVTOOLS__: false,
